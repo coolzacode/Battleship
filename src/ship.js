@@ -1,17 +1,13 @@
 export default class Ship {
-  constructor() {
+  constructor(length) {
+    this.length = length;
     this.timesHit = 0;
-    this.alive = true;
   }
 
   hit() {
     this.timesHit++;
   }
   isSunk() {
-    if (this.timesHit >= 3) {
-      this.alive = false;
-    }
+    return this.timesHit >= this.length;
   }
 }
-
-// module.exports = Ship;

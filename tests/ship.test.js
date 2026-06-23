@@ -1,21 +1,29 @@
 import Ship from '../src/ship.js';
 
 describe('Ship Class', () => {
-  let ship;
-  beforeEach(() => {
-    ship = new Ship();
+  test('should initialize with a length, 0 hits, and not be sunk', () => {
+    const smallShip = new Ship(2);
+    expect(smallShip.length).toBe(2);
+    expect(smallShip.timesHit).toBe(0);
+    expect(smallShip.isSunk()).toBe(false);
   });
-  // Test 1: hit()
-  test('should increment the hit count', () => {
+
+  test('should increment the hit count when hit() is called', () => {
+    const ship = new Ship(3);
     ship.hit();
     expect(ship.timesHit).toBe(1);
   });
-  // Test 2: isSunk()
-  test('should return true', () => {
-    ship.hit(); // +1;
-    ship.hit(); // +2;
-    ship.hit(); // +3;
-    ship.isSunk();
-    expect(ship.alive).toBe(false);
+
+  test('should report false for isSunk() if hits are less than length', () => {
+    const carrier = new Ship(5);
+    carrier.hit();
+    expect(carrier.isSunk()).toBe(false);
+  });
+
+  test('should report true for isSunk when hits equal length', () => {
+    const patrolBoat = new Ship(2);
+    patrolBoat.hit();
+    patrolBoat.hit();
+    expect(patrolBoat.isSunk()).toBe(true);
   });
 });
