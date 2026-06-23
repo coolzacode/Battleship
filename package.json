@@ -4,6 +4,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
     "start": "webpack serve",
     "build": "webpack"
   },
@@ -12,12 +13,16 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@babel/preset-env": "^7.29.7",
     "@eslint/js": "^10.0.1",
+    "babel-jest": "^30.4.1",
     "css-loader": "^7.1.4",
     "eslint": "^10.5.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.7.0",
     "html-webpack-plugin": "^5.6.7",
+    "jest": "^30.4.2",
     "prettier": "^3.8.4",
     "style-loader": "^4.0.0",
     "webpack": "^5.107.2",
