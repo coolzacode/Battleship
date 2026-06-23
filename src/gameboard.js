@@ -1,11 +1,44 @@
 export default class Gameboard {
   constructor() {
-    this.board = this.generateArray();
+    this.grid = this.generateArray();
+    this.missedAttacks = [];
+    this.ships = [];
   }
 
   generateArray() {
     return Array.from({ length: 10 }, () =>
       Array.from({ length: 10 }, () => null)
     );
+  }
+
+  placeShip(ship, coordinates, orientation) {
+    const row = coordinates[0];
+    const col = coordinates[1];
+
+    for (let i = 0; i < ship.length; i++) {
+      if (orientation === 'horizontal') {
+        this.grid[row][col + i] = ship;
+      }
+      if (orientation === 'vertical') {
+        this.grid[row + i][col] = ship;
+      }
+    }
+    this.ships.push(ship);
+  }
+
+  recieveAttack(coordinates) {
+    const row = coordinates[0];
+    const col = coordinates[1];
+
+    if (this.grid[row][col] !== null) {
+      this.grid[row][col].hit();
+      return true;
+    }
+    this.missedAttacks.push([row, col]);
+    return false;
+  }
+
+  allShipsSunk() {
+    return this.ships.every((ship) => ship.isSunk());
   }
 }
