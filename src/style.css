@@ -23,3 +23,15 @@
   border: 1px solid rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
+
+.hit-cell {
+  background-color: red;
+}
+
+.ship-cell {
+  background-color: green;
+}
+
+.miss-cell {
+  background-color: gray;
+}
