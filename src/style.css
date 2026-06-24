@@ -1,3 +1,50 @@
+:root {
+  --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Light Mode */
+  --bg-app: #f8fafc;
+  --bg-container: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+
+  --board-gridlines: #e2e8f0;
+  --cell-water: #f1f5f9;
+  --cell-hover: #e2e8f0;
+
+  --color-ship: #cbd5e1;
+  --color-ship-placed: #94a3b8;
+  --color-hit: #f43f5e;
+  --color-miss: #cbd5e1;
+
+  --btn-bg: #0f172a;
+  --btn-text: #ffffff;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --radius: 12px;
+}
+
+/* Automatic Dark Mode Toggle */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-app: #0f172a;
+    --bg-container: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+
+    --board-gridlines: #334155;
+    --cell-water: #1e293b;
+    --cell-hover: #334155;
+
+    --color-ship: #475569;
+    --color-ship-placed: #334155;
+    --color-hit: #ef4444;
+    --color-miss: #475569;
+
+    --btn-bg: #f8fafc;
+    --btn-text: #0f172a;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,10 +52,16 @@
 }
 
 body {
-  height: 100vh;
+  font-family: var(--font-main);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .hidden {
@@ -17,41 +70,80 @@ body {
 
 .game-container {
   display: flex;
-  justify-content: center;
-  gap: 50px;
+  background-color: var(--bg-container);
+  padding: 40px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  gap: 60px;
+  align-items: center;
 }
 
 .board {
   display: grid;
-  grid-template-columns: repeat(10, 30px);
-  grid-template-rows: repeat(10, 30px);
-  gap: 1px;
-  background-color: black;
+  grid-template-columns: repeat(10, 32px);
+  grid-template-rows: repeat(10, 32px);
+  gap: 2px;
+  background-color: var(--board-gridlines);
+  padding: 2px;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 .cell {
-  background-color: lightblue;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: var(--cell-water);
+  transition: background-color 0.05s ease;
   cursor: pointer;
 }
 
-.hit-cell {
-  background-color: red;
+.cell:hover {
+  background-color: var(--cell-hover);
 }
 
 .ship-cell {
-  background-color: green;
+  background-color: var(--color-ship-placed) !important;
+}
+
+.hit-cell {
+  background-color: var(--color-hit) !important;
+  position: relative;
 }
 
 .miss-cell {
-  background-color: gray;
+  background-color: var(--color-miss) !important;
+  position: relative;
 }
 
 .layout {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 30px;
+  width: 240px;
+  height: 340px;
+  justify-content: flex-start;
+}
+
+#rotate-btn {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+    transform 0.1s ease,
+    opacity 0.2s ease;
+}
+
+#rotate-btn:hover {
+  opacity: 0.9;
+}
+
+#rotate-btn:active {
+  transform: scale(0.97);
 }
 
 #dockyard {
@@ -59,61 +151,64 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  width: 300px;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
 }
 
 #dockyard.vertical-layout {
   flex-direction: row;
+  justify-content: center;
   align-items: flex-start;
+  width: 100%;
+  height: 100%;
 }
 
 .ship {
-  height: 30px;
-  background-color: gray;
-  border: 2px solid #333333;
+  height: 32px;
+  background-color: var(--color-ship);
+  border-radius: 6px;
   cursor: grab;
-  margin-bottom: 15px;
+  transition: opacity 0.2s ease;
 }
 
 #carrier {
-  width: 150px;
+  width: 160px;
 }
 #battleship {
-  width: 120px;
+  width: 128px;
 }
 #destroyer {
-  width: 90px;
+  width: 96px;
 }
 #submarine {
-  width: 90px;
+  width: 96px;
 }
 #patrol {
-  width: 60px;
+  width: 64px;
 }
 
 .ship.vertical {
-  width: 30px !important;
-  margin-right: 15px;
+  width: 32px !important;
 }
 
 #carrier.vertical {
-  height: 150px;
+  height: 160px;
 }
 #battleship.vertical {
-  height: 120px;
+  height: 128px;
 }
 #destroyer.vertical {
-  height: 90px;
+  height: 96px;
 }
 #submarine.vertical {
-  height: 90px;
+  height: 96px;
 }
 #patrol.vertical {
-  height: 60px;
+  height: 64px;
 }
 
 .ship:active {
   cursor: grabbing;
-  opacity: 0.6;
+  opacity: 0.5;
 }

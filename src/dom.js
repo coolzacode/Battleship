@@ -54,9 +54,9 @@ export function setupUI() {
   ships.forEach((ship) => {
     ship.addEventListener('mousedown', (e) => {
       if (currentOrientation === 'horizontal') {
-        draggedShipOffset = Math.floor(e.offsetX / 30);
+        draggedShipOffset = Math.floor(e.offsetX / 32);
       } else {
-        draggedShipOffset = Math.floor(e.offsetY / 30);
+        draggedShipOffset = Math.floor(e.offsetY / 32);
       }
     });
 
