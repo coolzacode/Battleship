@@ -30,10 +30,19 @@ export default class Gameboard {
     const row = coordinates[0];
     const col = coordinates[1];
 
+    if (this.grid[row][col] === 'hit' || this.grid[row][col] === 'miss') {
+      return false;
+    }
+
+    // Successful hit
     if (this.grid[row][col] !== null) {
       this.grid[row][col].hit();
+      this.grid[row][col] = 'hit';
       return true;
     }
+
+    // A miss
+    this.grid[row][col] = 'miss';
     this.missedAttacks.push([row, col]);
     return false;
   }
