@@ -1,4 +1,5 @@
 import Gamecontroller from './gamecontroller.js';
+import Ship from './ship.js';
 
 export function renderBoard(boardElement, gameboard) {
   boardElement.replaceChildren();
@@ -27,11 +28,17 @@ export function renderBoard(boardElement, gameboard) {
 export function setupUI() {
   const game = new Gamecontroller();
 
+  game.computerPlayer.placeComputerShips();
+
   let currentOrientation = 'horizontal';
 
   const rotateBtn = document.getElementById('rotate-btn');
   const dockyard = document.getElementById('dockyard');
+  const layoutContainer = document.getElementById('layout-container');
   const ships = document.querySelectorAll('.ship');
+
+  const playerBoardEl = document.getElementById('player-board');
+  const computerBoardEl = document.getElementById('computer-board');
 
   rotateBtn.addEventListener('click', () => {
     currentOrientation = currentOrientation === 'horizontal' ? 'vertical' : 'horizontal';
@@ -42,13 +49,47 @@ export function setupUI() {
     });
   });
 
-  const playerBoardEl = document.getElementById('player-board');
-  const computerBoardEl = document.getElementById('computer-board');
+  ships.forEach((ship) => {
+    ship.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', ship.dataset.length);
+      e.dataTransfer.setData('text/id', ship.id);
+    });
+  });
 
   renderBoard(playerBoardEl, game.realPlayer.gameboard);
   renderBoard(computerBoardEl, game.computerPlayer.gameboard);
 
+  playerBoardEl.addEventListener('dragover', (e) => {
+    if (!e.target.classList.contains('cell')) return;
+    e.preventDefault();
+  });
+
+  playerBoardEl.addEventListener('drop', (e) => {
+    if (!e.target.classList.contains('cell')) return;
+
+    const row = parseInt(e.target.dataset.row);
+    const col = parseInt(e.target.dataset.col);
+    const length = parseInt(e.dataTransfer.getData('text/plain'));
+    const shipId = e.dataTransfer.getData('text/id');
+
+    const newShip = new Ship(length);
+    const success = game.realPlayer.gameboard.placeShip(newShip, [row, col], currentOrientation);
+
+    if (success) {
+      const placedShip = document.getElementById(shipId);
+      if (placedShip) placedShip.remove();
+
+      renderBoard(playerBoardEl, game.realPlayer.gameboard);
+
+      if (dockyard.children.length === 0) {
+        layoutContainer.classList.add('hidden');
+        computerBoardEl.classList.remove('hidden');
+      }
+    }
+  });
+
   computerBoardEl.addEventListener('click', (e) => {
+    if (!layoutContainer.classList.contains('hidden')) return;
     if (!e.target.classList.contains('cell')) return;
 
     const row = parseInt(e.target.dataset.row);

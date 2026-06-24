@@ -29,7 +29,7 @@ export default class Player {
   }
 
   placeComputerShips() {
-    for (const shipSize of this.allShipShizes) {
+    for (const shipSize of this.allShipSizes) {
       let isShipPlaced = false;
 
       while (!isShipPlaced) {
