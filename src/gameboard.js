@@ -6,9 +6,7 @@ export default class Gameboard {
   }
 
   generateArray() {
-    return Array.from({ length: 10 }, () =>
-      Array.from({ length: 10 }, () => null)
-    );
+    return Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => null));
   }
 
   placeShip(ship, coordinates, orientation) {

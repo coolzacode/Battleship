@@ -9,7 +9,17 @@
     <main>
       <div class="game-container">
         <div id="player-board" class="board"></div>
-        <div id="computer-board" class="board"></div>
+        <div id="layout-container" class="layout">
+          <button id="rotate-btn">Rotate Ships: HORIZONTAL</button>
+          <div id="dockyard">
+            <div id="carrier" data-length="5" class="ship" draggable="true"></div>
+            <div id="battleship" data-length="4" class="ship" draggable="true"></div>
+            <div id="destroyer" data-length="3" class="ship" draggable="true"></div>
+            <div id="submarine" data-length="3" class="ship" draggable="true"></div>
+            <div id="patrol" data-length="2" class="ship" draggable="true"></div>
+          </div>
+        </div>
+        <div id="computer-board" class="board hidden"></div>
       </div>
     </main>
   </body>

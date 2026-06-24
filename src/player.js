@@ -39,11 +39,7 @@ export default class Player {
 
         const ship = new Ship(shipSize);
 
-        isShipPlaced = this.gameboard.placeShip(
-          ship,
-          [row, col],
-          shipDirection
-        );
+        isShipPlaced = this.gameboard.placeShip(ship, [row, col], shipDirection);
       }
     }
   }

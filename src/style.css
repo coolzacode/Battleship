@@ -4,6 +4,17 @@
   box-sizing: border-box;
 }
 
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
 .game-container {
   display: flex;
   justify-content: center;
@@ -34,4 +45,75 @@
 
 .miss-cell {
   background-color: gray;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+#dockyard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 300px;
+}
+
+#dockyard.vertical-layout {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.ship {
+  height: 30px;
+  background-color: gray;
+  border: 2px solid #333333;
+  cursor: grab;
+  margin-bottom: 15px;
+}
+
+#carrier {
+  width: 150px;
+}
+#battleship {
+  width: 120px;
+}
+#destroyer {
+  width: 90px;
+}
+#submarine {
+  width: 90px;
+}
+#patrol {
+  width: 60px;
+}
+
+.ship.vertical {
+  width: 30px !important;
+  margin-right: 15px;
+}
+
+#carrier.vertical {
+  height: 150px;
+}
+#battleship.vertical {
+  height: 120px;
+}
+#destroyer.vertical {
+  height: 90px;
+}
+#submarine.vertical {
+  height: 90px;
+}
+#patrol.vertical {
+  height: 60px;
+}
+
+.ship:active {
+  cursor: grabbing;
+  opacity: 0.6;
 }

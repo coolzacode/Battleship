@@ -14,11 +14,7 @@ export function renderBoard(boardElement, gameboard) {
 
       if (grid[r][c] === 'hit') cell.classList.add('hit-cell');
       if (grid[r][c] === 'miss') cell.classList.add('miss-cell');
-      if (
-        boardElement.id === 'player-board' &&
-        typeof grid[r][c] === 'object' &&
-        grid[r][c] !== null
-      ) {
+      if (boardElement.id === 'player-board' && typeof grid[r][c] === 'object' && grid[r][c] !== null) {
         cell.classList.add('ship-cell');
       }
 
@@ -30,6 +26,21 @@ export function renderBoard(boardElement, gameboard) {
 
 export function setupUI() {
   const game = new Gamecontroller();
+
+  let currentOrientation = 'horizontal';
+
+  const rotateBtn = document.getElementById('rotate-btn');
+  const dockyard = document.getElementById('dockyard');
+  const ships = document.querySelectorAll('.ship');
+
+  rotateBtn.addEventListener('click', () => {
+    currentOrientation = currentOrientation === 'horizontal' ? 'vertical' : 'horizontal';
+    rotateBtn.textContent = `Rotate Ships: ${currentOrientation.toUpperCase()}`;
+    dockyard.classList.toggle('vertical-layout');
+    ships.forEach((ship) => {
+      ship.classList.toggle('vertical');
+    });
+  });
 
   const playerBoardEl = document.getElementById('player-board');
   const computerBoardEl = document.getElementById('computer-board');
@@ -49,9 +60,7 @@ export function setupUI() {
     renderBoard(computerBoardEl, game.computerPlayer.gameboard);
 
     if (game.winner) {
-      alert(
-        `${game.winner.type === 'real' ? 'You' : 'The Computer'} has won the game!`
-      );
+      alert(`${game.winner.type === 'real' ? 'You' : 'The Computer'} has won the game!`);
     }
   });
 }
