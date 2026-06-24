@@ -49,10 +49,21 @@ export function setupUI() {
     });
   });
 
+  let draggedShipOffset = 0;
+
   ships.forEach((ship) => {
+    ship.addEventListener('mousedown', (e) => {
+      if (currentOrientation === 'horizontal') {
+        draggedShipOffset = Math.floor(e.offsetX / 30);
+      } else {
+        draggedShipOffset = Math.floor(e.offsetY / 30);
+      }
+    });
+
     ship.addEventListener('dragstart', (e) => {
       e.dataTransfer.setData('text/plain', ship.dataset.length);
       e.dataTransfer.setData('text/id', ship.id);
+      e.dataTransfer.setData('text/offset', draggedShipOffset.toString());
     });
   });
 
@@ -72,8 +83,17 @@ export function setupUI() {
     const length = parseInt(e.dataTransfer.getData('text/plain'));
     const shipId = e.dataTransfer.getData('text/id');
 
+    const offset = parseInt(e.dataTransfer.getData('text/offset'));
+    let startRow = row;
+    let startCol = col;
+
+    if (currentOrientation === 'horizontal') {
+      startCol -= offset;
+    } else {
+      startRow -= offset;
+    }
     const newShip = new Ship(length);
-    const success = game.realPlayer.gameboard.placeShip(newShip, [row, col], currentOrientation);
+    const success = game.realPlayer.gameboard.placeShip(newShip, [startRow, startCol], currentOrientation);
 
     if (success) {
       const placedShip = document.getElementById(shipId);
