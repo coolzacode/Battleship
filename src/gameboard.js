@@ -15,15 +15,25 @@ export default class Gameboard {
     const row = coordinates[0];
     const col = coordinates[1];
 
+    // Validate placement
     for (let i = 0; i < ship.length; i++) {
-      if (orientation === 'horizontal') {
-        this.grid[row][col + i] = ship;
-      }
-      if (orientation === 'vertical') {
-        this.grid[row + i][col] = ship;
-      }
+      let r = row;
+      let c = col;
+
+      if (orientation === 'horizontal') c += i;
+      if (orientation === 'vertical') r += i;
+
+      if (r < 0 || r >= 10 || c < 0 || c >= 10) return false; // check out of bounds
+      if (this.grid[r][c] !== null) return false; // check for another ship
+    }
+
+    // Place ship
+    for (let i = 0; i < ship.length; i++) {
+      if (orientation === 'horizontal') this.grid[row][col + i] = ship;
+      if (orientation === 'vertical') this.grid[row + i][col] = ship;
     }
     this.ships.push(ship);
+    return true;
   }
 
   recieveAttack(coordinates) {
