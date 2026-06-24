@@ -1,5 +1,4 @@
 import Gamecontroller from './gamecontroller.js';
-import Ship from './ship.js';
 
 export function renderBoard(boardElement, gameboard) {
   boardElement.replaceChildren();
@@ -35,12 +34,6 @@ export function setupUI() {
   const playerBoardEl = document.getElementById('player-board');
   const computerBoardEl = document.getElementById('computer-board');
 
-  // hardcoded boats for testing
-  const realShip = new Ship(3);
-  const compShip = new Ship(3);
-  game.realPlayer.gameboard.placeShip(realShip, [2, 4], 'horizontal');
-  game.computerPlayer.gameboard.placeShip(compShip, [2, 4], 'vertical');
-  // ^^^^^
   renderBoard(playerBoardEl, game.realPlayer.gameboard);
   renderBoard(computerBoardEl, game.computerPlayer.gameboard);
 
