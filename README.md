@@ -4,10 +4,10 @@
 
 ## Visual Demonstration
 
-| Light Mode                                                             | Dark Mode                                                            |
-| :--------------------------------------------------------------------- | :------------------------------------------------------------------- |
-| ![Ship Placement Visual in Light mode](./assets/Place-Ship-Light.jpeg) | ![Ship Placement Visual in Dark mode](./assets/Place-Ship-Dark.jpeg) |
-| ![Gameplay Visual in Light mode](./assets/Game-light.jpeg)             | ![Gameplay Visual in Dark mode](./assets/Game-dark.jpeg)             |
+| Light Mode                                                            | Dark Mode                                                           |
+| :-------------------------------------------------------------------- | :------------------------------------------------------------------ |
+| ![Ship Placement Visual in Light mode](./assets/Place-Ship-Light.png) | ![Ship Placement Visual in Dark mode](./assets/Place-Ship-Dark.png) |
+| ![Gameplay Visual in Light mode](./assets/Game-light.png)             | ![Gameplay Visual in Dark mode](./assets/Game-dark.png)             |
 
 > **Note:** Automatically detects your operating system's theme preferences and displays a minimalist, tactile layout in either Light or Dark mode natively.
 
